@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, ButtonBase, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Box, Button, ButtonBase, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Tooltip } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import UserAvatar from "../components/UserAvatar";
@@ -32,7 +32,7 @@ class Navbar extends React.Component {
   render() {
     let openUserMenu = Boolean(this.state.toggleUserMenu);
 
-    return <AppBar position="sticky" sx={{ padding: 1 }} color="background">
+    return <AppBar position="absolute" sx={{ padding: 1 }} color="background">
       <Toolbar>
         <ButtonBase component="a" href={AuthService.authenticated ? "/dashboard" : "/"} disableRipple>
           <Logo />
@@ -51,7 +51,10 @@ class Navbar extends React.Component {
 
             <Menu anchorEl={this.state.toggleUserMenu} open={openUserMenu} onClose={this.closeUserMenu}>
               <MenuItem onClick={this.logout}>
-                <ListItemIcon><Logout /></ListItemIcon> Sign Out
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon> 
+                <ListItemText primary="Sign Out" />
               </MenuItem>
             </Menu>
           </div>

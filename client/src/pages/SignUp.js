@@ -9,7 +9,7 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = { alertMessage: "" };
-    
+
     this.signup = this.signup.bind(this);
     this.setErrorMessage = this.setErrorMessage.bind(this);
   }
@@ -36,9 +36,8 @@ class SignUp extends React.Component {
       <DenyAccess when="loggedin" redirect="/dashboard">
         <Grid container component="main" sx={{
           height: "100vh",
-          background: "purple",
         }}>
-          <Grid item xs={false} sm={4} md={5.5} sx={{ display: { xs: "none", sm: "block"}}}>
+          <Grid item xs={false} sm={4} md={5.5} sx={{ display: { xs: "none", sm: "block" } }}>
             <ButtonBase component="a" href="/" disableRipple sx={{ margin: 3 }}>
               <Logo />
             </ButtonBase>

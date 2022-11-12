@@ -1,4 +1,14 @@
 html, body {
   margin: 0;
   padding: 0;
+  background: #1a2144;
+}
+
+.morphic-container {
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+  backdrop-filter: blur(10px);
+}
+
+.menuButton {
+  color: white;
 }
