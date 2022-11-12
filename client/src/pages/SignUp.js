@@ -1,8 +1,9 @@
 import React from "react";
-import { Alert, Box, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, ButtonBase, Grid, Link, Paper, Stack, Typography } from "@mui/material";
 import DenyAccess from "../components/DenyAccess";
 import AuthField from "../components/AuthField";
 import AuthService from "../services/AuthService";
+import Logo from "../components/Logo";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -35,10 +36,12 @@ class SignUp extends React.Component {
       <DenyAccess when="loggedin" redirect="/dashboard">
         <Grid container component="main" sx={{
           height: "100vh",
-          background: "linear-gradient(180deg, rgba(35, 104, 162, 0.2) 0%, rgba(99, 162, 216, 0.2) 69.27%, rgba(170, 212, 245, 0.2) 100%);",
+          background: "purple",
         }}>
           <Grid item xs={false} sm={4} md={5.5} sx={{ display: { xs: "none", sm: "block"}}}>
-            <Button component="a" href="/" disableRipple sx={{ margin: 3 }}>Home</Button>
+            <ButtonBase component="a" href="/" disableRipple sx={{ margin: 3 }}>
+              <Logo />
+            </ButtonBase>
 
             <Stack alignItems="end" sx={{ mt: { sm: 12, md: 4 }, ml: "12%", mr: "-6%" }}>
               <Box component="img" src="../assets/data_analysis.png" alt="" minWidth="52vh" width="100%" maxWidth="80vh" zIndex="1" />

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Pages
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -22,6 +23,7 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />

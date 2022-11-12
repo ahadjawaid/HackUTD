@@ -35,7 +35,7 @@ class Login extends React.Component {
     return <DenyAccess when="loggedin" redirect="">
       <Navbar />
 
-      <Stack direction="column" alignItems="center" sc={{ margin: { xs: 5, sm: 10 }, mb: 0 }}>
+      <Stack direction="column" alignItems="center" sx={{ margin: { xs: 5, sm: 10 }, mb: 0 }}>
         <Paper component="form" onSubmit={this.login} sx={{ padding: 4, maxWidth: 480 }}>
           <Typography component="h1" variant="h4" sx={{ fontWeight: "bold" }}>Sign In</Typography>
 
