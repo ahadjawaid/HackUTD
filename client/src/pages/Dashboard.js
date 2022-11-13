@@ -222,6 +222,7 @@ const Dashboard1 = () => {
                 style={{
                   height: "100%",
                   display: "flex",
+                  marginTop: "5vh",
                 }}
               >
                 <CircularProgress color="secondary" />
