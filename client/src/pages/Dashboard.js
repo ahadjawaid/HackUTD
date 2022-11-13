@@ -25,7 +25,8 @@ const Dashboard1 = () => {
 
   const user = AuthService.user.userUuid;
   const spacing = 8;
-  const apiURL = "http://10.169.166.95:5000/";
+  // const apiURL = "http://10.169.166.95:5000/";
+  const apiURL = "http://localhost:5000/";
 
   useEffect(() => {
     fetch(apiURL + `graphs?user=${user}`, {
@@ -84,9 +85,15 @@ const Dashboard1 = () => {
               flexDirection: "column",
             }}
           >
-            <Typography marginBottom={spacing} variant="h3">
+            <h3
+              style={{
+                marginBottom: "3vh",
+                fontSize: "3em",
+                fontWeight: 500,
+              }}
+            >
               Recognize Emotions
-            </Typography>
+            </h3>
             <Paper
               sx={{
                 padding: "1rem",
@@ -175,6 +182,17 @@ const Dashboard1 = () => {
               </Box>
             </Paper>
 
+            {(initialLoading || uploadLoading) && (
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  marginTop: "5vh",
+                }}
+              >
+                <LoadingBar />
+              </div>
+            )}
             {graphs.length > 0 && (
               <div
                 style={{
@@ -205,7 +223,7 @@ const Dashboard1 = () => {
                 })}
               </div>
             )}
-            {initialLoaded && graphs.length === 0 && (
+            {initialLoaded && !uploadLoading && graphs.length === 0 && (
               <div
                 style={{
                   height: "100%",
@@ -215,17 +233,6 @@ const Dashboard1 = () => {
                 <h4 style={{ fontWeight: 400, fontSize: "30px" }}>
                   It doesn't seem like you have any uploads at the moment!
                 </h4>
-              </div>
-            )}
-            {initialLoading && (
-              <div
-                style={{
-                  height: "100%",
-                  display: "flex",
-                  marginTop: "5vh",
-                }}
-              >
-                <LoadingBar />
               </div>
             )}
           </Box>
