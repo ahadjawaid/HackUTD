@@ -7,6 +7,7 @@ import Graph from "../components/Graph";
 import AuthService from "../services/AuthService";
 import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import LoadingBar from "../components/LoadingBar";
 
 const Dashboard1 = () => {
   const [graphs, setGraphs] = useState([]);
@@ -198,7 +199,7 @@ const Dashboard1 = () => {
                   display: "flex",
                 }}
               >
-                <CircularProgress color="secondary" />
+                <LoadingBar />
               </div>
             )}
           </Box>
