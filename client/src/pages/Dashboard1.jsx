@@ -71,7 +71,6 @@ const Dashboard1 = () => {
             padding: "2% 5%",
           }}
         >
-          <h1>Your Organization Name</h1>
           <div
             style={{
               display: "flex",
