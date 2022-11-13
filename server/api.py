@@ -61,7 +61,7 @@ def upload():
     recognizer = EmotionRecognizer()
     
     # duration and offset are used to take care of the no audio in start and the ending of each audio files as seen above.
-    waveform, sampling_freq = librosa.load(path, duration=2.5, offset=0.6)
+    waveform, sampling_freq = librosa.load(path, offset=0.6)
 
     emotions = recognizer.classifyWavFile(data=waveform, sample_rate=sampling_freq)
 
