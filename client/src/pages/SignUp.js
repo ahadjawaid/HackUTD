@@ -42,8 +42,8 @@ class SignUp extends React.Component {
               <Logo />
             </ButtonBase>
 
-            <Stack alignItems="end" sx={{ mt: { sm: 12, md: 4 }, ml: "12%", mr: "-6%" }}>
-              <Box component="img" src="../assets/data_analysis.png" alt="" minWidth="52vh" width="100%" maxWidth="80vh" zIndex="1" />
+            <Stack alignItems="end" sx={{ mt: { sm: 24, md: 12 }, ml: "8%", mr: "8%" }}>
+              <Box component="img" src="../assets/browser_stats.png" alt="" minWidth="52vh" width="100%" maxWidth="80vh" zIndex="1" />
             </Stack>
           </Grid>
 
