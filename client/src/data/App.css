@@ -1,7 +1,9 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #1a2144;
+  background: #211D2B;
+  font-family: "Poppins";
+  color: white;
 }
 
 .morphic-container {

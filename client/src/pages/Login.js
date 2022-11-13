@@ -33,7 +33,7 @@ class Login extends React.Component {
 
   render() {
     return <DenyAccess when="loggedin" redirect="">
-      <Navbar />
+      <Navbar type="transparent" />
 
       <Stack direction="column" alignItems="center" sx={{ margin: { xs: 5, sm: 10 }, mb: 0 }}>
         <Paper className="morphic-container" component="form" onSubmit={this.login} sx={{ padding: 4, maxWidth: 480, borderRadius: "10px" }}>

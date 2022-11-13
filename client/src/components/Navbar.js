@@ -33,10 +33,11 @@ class Navbar extends React.Component {
     let openUserMenu = Boolean(this.state.toggleUserMenu);
     let color = (this.props.type === "transparent") ? "transparent" : "background"
     let elevation = (this.props.type === "transparent") ? 0 : 5
+    const bold = { fontWeight: 800 };
 
     return <AppBar position="sticky" sx={{ padding: 1 }} color={color} elevation={elevation}>
       <Toolbar>
-        <ButtonBase component="a" href={AuthService.authenticated ? "/dashboard" : "/"} disableRipple>
+        <ButtonBase sx={bold} component="a" href={AuthService.authenticated ? "/dashboard" : "/"} disableRipple>
           <Logo />
         </ButtonBase>
 
@@ -63,10 +64,10 @@ class Navbar extends React.Component {
           }
 
           {!AuthService.authenticated &&
-            <Button href="/login" variant="contained">Sign In</Button>
+            <Button sx={bold} href="/login" variant="contained">Sign In</Button>
           }
           {!AuthService.authenticated &&
-            <Button href="signup" variant="contained">Sign Up</Button>
+            <Button sx={bold} href="signup" variant="contained">Sign Up</Button>
           }
         </Stack>
       </Toolbar>
