@@ -1,4 +1,4 @@
-# How to run
+# How to run in development
 
 ```shell
 python -m venv venv
