@@ -31,8 +31,10 @@ class Navbar extends React.Component {
 
   render() {
     let openUserMenu = Boolean(this.state.toggleUserMenu);
+    let color = (this.props.type === "transparent") ? "transparent" : "background"
+    let elevation = (this.props.type === "transparent") ? 0 : 5
 
-    return <AppBar position="absolute" sx={{ padding: 1 }} color="background">
+    return <AppBar position="sticky" sx={{ padding: 1 }} color={color} elevation={elevation}>
       <Toolbar>
         <ButtonBase component="a" href={AuthService.authenticated ? "/dashboard" : "/"} disableRipple>
           <Logo />

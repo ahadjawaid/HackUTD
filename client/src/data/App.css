@@ -9,6 +9,15 @@ html, body {
   backdrop-filter: blur(10px);
 }
 
-.menuButton {
+.menu-button {
+  text-transform: none;
+  color: white;
+}
+
+.toggled-button {
+  background-color: pink;
+}
+
+.logo {
   color: white;
 }

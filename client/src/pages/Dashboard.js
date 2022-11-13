@@ -1,29 +1,58 @@
 import React from "react";
 import DenyAccess from "../components/DenyAccess";
-import { Box, ButtonBase, Stack } from "@mui/material";
-import Logo from "../components/Logo";
-import { Home, Folder } from "@mui/icons-material";
+import { Box, Button, Stack } from "@mui/material";
+import { Folder, Add, CloudUpload } from "@mui/icons-material";
+import Navbar from "../components/Navbar";
 
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      subpage: null
+    };
+
+    this.setSubpage = this.setSubpage.bind(this);
+  }
+
+  button(name, icon) {
+    let className = (this.state.subpage === name) ? "toggled-button" : "";
+
+    return <Button className={className} onClick={(event) => this.setSubpage(event, name)} sx={{ borderRadius: 3, width: "100%", testTransform: "none" }}>
+      <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2} padding={1} width="100%">
+        {icon}
+        <h3 className="menu-button">{name}</h3>
+      </Stack>
+    </Button>;
+  }
+
+  setSubpage(event, value) {
+    event.preventDefault();
+
+    this.setState({
+      page: value
+    });
+  }
+
   render() {
     return <DenyAccess when="loggedout" redirect="/login">
-      <Stack direction="column" alignItems="start" padding={2} spacing={2} maxWidth="200px" color="background">
-        <Logo />
+      <Navbar type="transparent" />
 
-        <Box />
+      <Stack direction="row" spacing={4}>
+        <Stack direction="column" alignItems="start" padding={2} spacing={2} maxWidth="200px" color="background">
+          <Box />
 
-        <ButtonBase sx={{ borderRadius: 3, width: "100%" }}>
-          <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2} padding={2}>
-            <Home htmlColor="white" />
-            <h3 className="menuButton">Home</h3>
+          {this.button("New Audio", <Add htmlColor="white" />)}
+          {this.button("All Recordings", <Folder htmlColor="white" />)}
+        </Stack>
+
+        {/* {this.state.subpage === "New Audio" && */}
+          <Stack direction="column" alignItems="center">
+            <p>Drag and drop audio to transcribe</p>
+            <p>OR</p>
+            <Button variant="contained"><CloudUpload /> Choose a file</Button>
+            <Button variant="contained">Transcribe</Button>
           </Stack>
-        </ButtonBase>
-        <ButtonBase sx={{ borderRadius: 3, width: "100%" }}>
-          <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2} padding={2}>
-            <Folder htmlColor="white" />
-            <h3 className="menuButton">All Recordings</h3>
-          </Stack>
-        </ButtonBase>
+        
       </Stack>
     </DenyAccess>
   }
