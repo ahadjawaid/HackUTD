@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import DenyAccess from "../components/DenyAccess";
 import { Box, Button, Stack } from "@mui/material";
 import { Folder, Add, CloudUpload } from "@mui/icons-material";
@@ -58,6 +58,9 @@ const Dashboard1 = () => {
       });
   }, [user]);
 
+  // used to trigger input action when button is clicked
+  const fileUploadRef = useRef();
+
   return (
     <DenyAccess when="loggedout" redirect="/login">
       <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
@@ -79,52 +82,59 @@ const Dashboard1 = () => {
               gap: "40px",
             }}
           >
+            <input
+              type="file"
+              accept=".mp3"
+              id="audio-file"
+              //   style={{ display: "none" }}
+              hidden
+              ref={fileUploadRef}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  setUploadLoading(true);
+                  const formData = new FormData();
+
+                  formData.append("file", file);
+                  formData.append("filename", file.name);
+                  formData.append("user", user);
+
+                  fetch("http://localhost:5000/upload", {
+                    method: "POST",
+                    body: formData,
+                    mode: "cors",
+                  })
+                    .then((r) => r.json())
+                    .then((j) => {
+                      const dt = 1 / j.sampling_freq;
+                      const timeline = [];
+                      for (let i = 0; i < j.waveform.length; i++) {
+                        timeline.push(i * dt);
+                      }
+
+                      addGraph({
+                        title: file.name,
+                        x: timeline,
+                        y: j.waveform,
+                        emotions: j.emotions,
+                      });
+                    })
+                    .catch((e) => console.log(e))
+                    .finally(() => setUploadLoading(false));
+                }
+              }}
+            />
             <Button
+              onClick={() => {
+                if (fileUploadRef.current) {
+                  fileUploadRef.current.click();
+                }
+              }}
               sx={{ fontWeight: 800, paddingX: "10px" }}
               variant="contained"
             >
               <CloudUpload sx={{ mr: 1 }} />
               Upload audio file
-              <input
-                type="file"
-                accept=".mp3"
-                name="audio-file"
-                //   style={{ display: "none" }}
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setUploadLoading(true);
-                    const formData = new FormData();
-
-                    formData.append("file", file);
-                    formData.append("filename", file.name);
-                    formData.append("user", user);
-
-                    fetch("http://localhost:5000/upload", {
-                      method: "POST",
-                      body: formData,
-                      mode: "cors",
-                    })
-                      .then((r) => r.json())
-                      .then((j) => {
-                        const dt = 1 / j.sampling_freq;
-                        const timeline = [];
-                        for (let i = 0; i < j.waveform.length; i++) {
-                          timeline.push(i * dt);
-                        }
-
-                        addGraph({
-                          title: file.name,
-                          x: timeline,
-                          y: j.waveform,
-                          emotions: j.emotions,
-                        });
-                      })
-                      .catch((e) => console.log(e))
-                      .finally(() => setUploadLoading(false));
-                  }
-                }}
-              />
             </Button>
             {uploadLoading && <CircularProgress color="secondary" />}
           </div>
