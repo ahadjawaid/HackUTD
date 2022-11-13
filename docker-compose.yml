@@ -4,6 +4,7 @@ services:
     image: ambient/server
     build:
       context: server
+    network_mode: host
     ports:
       - "5000:5000"
     depends_on:

@@ -83,8 +83,6 @@ def list_graphs():
     if user == None:
         return make_response({"message":"invalid request"}, 400)
 
-    print(user)
-
     cur.execute("SELECT * FROM graphs WHERE user_front_uuid = %s", (user,))
     
     return make_response({"data": cur.fetchall()}, 200)
