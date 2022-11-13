@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  api:
+    image: ambient/server
+    build:
+      context: server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - "db"
+  db:
+    image: "postgres:15-bullseye"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - .scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
