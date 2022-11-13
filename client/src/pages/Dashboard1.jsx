@@ -86,7 +86,6 @@ const Dashboard1 = () => {
               type="file"
               accept=".mp3"
               id="audio-file"
-              //   style={{ display: "none" }}
               hidden
               ref={fileUploadRef}
               onChange={(e) => {
