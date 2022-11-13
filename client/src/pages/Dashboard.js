@@ -26,9 +26,10 @@ const Dashboard1 = () => {
 
   const user = AuthService.user.userUuid;
   const spacing = 8;
+  const apiURL = "http://10.169.166.95:5000/";
 
   useEffect(() => {
-    fetch(`http://localhost:5000/graphs?user=${user}`, {
+    fetch(apiURL + `graphs?user=${user}`, {
       method: "GET",
     })
       .then((x) => x.json())
@@ -128,7 +129,7 @@ const Dashboard1 = () => {
                       formData.append("filename", file.name);
                       formData.append("user", user);
 
-                      fetch("http://localhost:5000/upload", {
+                      fetch(apiURL + "upload", {
                         method: "POST",
                         body: formData,
                         mode: "cors",
