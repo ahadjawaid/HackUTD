@@ -4,6 +4,8 @@ import os
 import pathlib
 from werkzeug.utils import secure_filename
 import librosa
+from fileConverter import convertFileToWav
+from EmotionRecognizer import EmotionRecognizer
 
 UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = set(['mp3'])
@@ -33,9 +35,19 @@ def upload():
     path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(path)
 
-    waveform, sampling_freq = librosa.load("./uploads/sample1.mp3")
+    # TODO: Change fiel format
+    path = convertFileToWav(path)
+
+    # TODO: Get Emotions and waveForm
+    recognizer = EmotionRecognizer()
+    
+    # duration and offset are used to take care of the no audio in start and the ending of each audio files as seen above.
+    waveform, sampling_freq = librosa.load(path, duration=2.5, offset=0.6)
+
+    emotions = recognizer.classifyWavFile(data=waveform, sample_rate=sampling_freq)
 
     return make_response({
         'waveform': waveform.tolist(),
-        'sampling_freq': sampling_freq
+        'sampling_freq': sampling_freq,
+        'emotions': emotions,
     }, 200)
