@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 // Pages
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import Dashboard1 from "./pages/Dashboard1";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
@@ -26,7 +25,6 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard1" element={<Dashboard1 />} />
             <Route path="/login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
           </Routes>

@@ -23,7 +23,7 @@ class Landing extends React.Component {
         <Box sx={{ maxWidth: "35%"}}>
           <Typography marginBottom={spacing} variant="h2" sx={bold}>Analyze Customer Experience</Typography>
           <Typography marginBottom={spacing} variant="body1">Upload your customer converstaion as an MP3 File and get an breakdown of the emotions of your customer</Typography>
-          <Button variant="contained" sx={bold}>Try It Out</Button>
+          <Button component="a" href="/signup" variant="contained" sx={bold}>Try It Out</Button>
         </Box>
         <Box>
           <Box component="img" src="/assets/gradient_wave_form.svg" />
