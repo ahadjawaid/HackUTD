@@ -8,16 +8,16 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      subpage: null
+      page: "New Audio"
     };
 
-    this.setSubpage = this.setSubpage.bind(this);
+    this.setpage = this.setpage.bind(this);
   }
 
   button(name, icon) {
-    let className = (this.state.subpage === name) ? "toggled-button" : "";
+    let className = (this.state.page === name) ? "toggled-button" : "";
 
-    return <Button className={className} onClick={(event) => this.setSubpage(event, name)} sx={{ borderRadius: 3, width: "100%", testTransform: "none" }}>
+    return <Button className={className} onClick={() => this.setpage(name)} sx={{ borderRadius: 3, width: "100%", testTransform: "none" }}>
       <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={2} padding={1} width="100%">
         {icon}
         <h3 className="menu-button">{name}</h3>
@@ -25,9 +25,7 @@ class Dashboard extends React.Component {
     </Button>;
   }
 
-  setSubpage(event, value) {
-    event.preventDefault();
-
+  setpage(value) {
     this.setState({
       page: value
     });
@@ -37,23 +35,34 @@ class Dashboard extends React.Component {
     return <DenyAccess when="loggedout" redirect="/login">
       <Navbar type="transparent" />
 
-      <Stack direction="row" spacing={4}>
-        <Stack direction="column" alignItems="start" padding={2} spacing={2} maxWidth="200px" color="background">
-          <Box />
+      <Stack position="absolute" direction="column" alignItems="start" padding={2} spacing={2} maxWidth="200px" color="background">
+        <Box />
 
-          {this.button("New Audio", <Add htmlColor="white" />)}
-          {this.button("All Recordings", <Folder htmlColor="white" />)}
-        </Stack>
-
-        {/* {this.state.subpage === "New Audio" && */}
-          <Stack direction="column" alignItems="center">
-            <p>Drag and drop audio to transcribe</p>
-            <p>OR</p>
-            <Button variant="contained"><CloudUpload /> Choose a file</Button>
-            <Button variant="contained">Transcribe</Button>
-          </Stack>
-        
+        {this.button("New Audio", <Add htmlColor="white" />, () => { this.setSubpage("New Audio") })}
+        {this.button("All Recordings", <Folder htmlColor="white" />, () => { this.setSubpage("All Recordings") })}
       </Stack>
+
+      {this.state.page === "New Audio" &&
+        <Stack direction="column" spacing={1} sx={{ ml: "300px" }}>
+          <Box sx={{ border: 1, borderRadius: 4, borderColor: "white", margin: 4 }}>
+            <Stack direction="column" alignItems="center" justifyContent="center" spacing={2} padding={10}>
+              <p className="info">Drag and drop audio to transcribe</p>
+              <p className="info">OR</p>
+              <Button variant="contained" sx={{ mt: 4, textTransform: "none" }}>
+                <CloudUpload sx={{ mr: 1 }} /> Choose a file
+              </Button>
+            </Stack>
+          </Box>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ paddingRight: 6, paddingLeft: 6 }} spacing={12}>
+            <Box sx={{ flexGrow: 1, backgroundColor: "white", height: 18, borderRadius: 2 }} />
+            <Button variant="contained" sx={{ textTransform: "none" }}>Transcribe</Button>
+          </Stack>
+        </Stack>
+      }
+
+      {this.state.page === "All Recordings" &&
+        <h1>All Recordings...</h1>
+      }
     </DenyAccess>
   }
 }

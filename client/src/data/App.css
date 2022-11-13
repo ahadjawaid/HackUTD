@@ -15,9 +15,15 @@ html, body {
 }
 
 .toggled-button {
-  background-color: pink;
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.3), rgba(255,255,255,0.1)) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .logo {
   color: white;
+}
+
+.info {
+  color: white;
+  margin-bottom: 0;
 }
