@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 import Graph from "../components/Graph";
 import AuthService from "../services/AuthService";
 import { useEffect } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
 import LoadingBar from "../components/LoadingBar";
 
 const Dashboard1 = () => {
@@ -173,7 +172,6 @@ const Dashboard1 = () => {
                     Upload audio file
                   </Typography>
                 </Button>
-                {uploadLoading && <CircularProgress color="secondary" />}
               </Box>
             </Paper>
 
