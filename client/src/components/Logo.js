@@ -1,8 +1,12 @@
+import { Stack } from "@mui/material";
 import React from "react";
 
 class Logo extends React.Component {
   render() {
-    return <h1 className="logo">ambient</h1>;
+    return <Stack direction="row" alignItems="center" spacing={1}>
+      <img alt="" src="./assets/logo.png" height="35px" />
+      <h1 className="logo">ambient</h1>
+    </Stack>;
   }
 }
 
