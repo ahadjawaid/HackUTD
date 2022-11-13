@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import DenyAccess from "../components/DenyAccess";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Paper } from "@mui/material";
 import { CloudUpload } from "@mui/icons-material";
 import Navbar from "../components/Navbar";
 import Graph from "../components/Graph";
@@ -27,7 +27,7 @@ const Dashboard1 = () => {
   const spacing = 8;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/graphs?user=${user}`, {
+    fetch(`http://localhost:5000/graphs?user=${user}/`, {
       method: "GET",
     })
       .then((x) => x.json())
@@ -82,70 +82,83 @@ const Dashboard1 = () => {
             flexDirection: "column",
           }}>
             <Typography marginBottom={spacing} variant="h3">Recognize Emotions</Typography>
-            <Box
-              marginBottom={spacing}
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="file"
-                accept=".mp3"
-                id="audio-file"
-                hidden
-                ref={fileUploadRef}
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setUploadLoading(true);
-                    const formData = new FormData();
-
-                    formData.append("file", file);
-                    formData.append("filename", file.name);
-                    formData.append("user", user);
-
-                    fetch("http://localhost:5000/upload", {
-                      method: "POST",
-                      body: formData,
-                      mode: "cors",
-                    })
-                      .then((r) => r.json())
-                      .then((j) => {
-                        const dt = 1 / j.sampling_freq;
-                        const timeline = [];
-                        for (let i = 0; i < j.waveform.length; i++) {
-                          timeline.push(i * dt);
-                        }
-
-                        addGraph({
-                          title: file.name,
-                          x: timeline,
-                          y: j.waveform,
-                          emotions: j.emotions,
-                        });
-                      })
-                      .catch((e) => console.log(e))
-                      .finally(() => setUploadLoading(false));
-                  }
+            <Paper sx={{
+              padding: "1rem",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              border: "solid .5rem #9C81EA",
+              borderRadius: "1rem",
+            }}>
+              <Box component="img" src="./assets/translation_image_blue.svg" sx={{
+                marginX: "5rem",
+                marginY: "5rem",
+              }} />
+              <Box
+                marginBottom={spacing}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
                 }}
-              />
-              <Button
-                onClick={() => {
-                  if (fileUploadRef.current) {
-                    fileUploadRef.current.click();
-                  }
-                }}
-                variant="contained"
               >
-                <CloudUpload sx={{ mr: 1 }} />
-                <Typography marginTop={0.5} sx={{ 
-                  fontWeight: "800 !important", 
-                  paddingX: "10px",
-                }}>Upload audio file</Typography>
-              </Button>
-              {uploadLoading && <CircularProgress color="secondary" />}
-            </Box>
+                <input
+                  type="file"
+                  accept=".mp3"
+                  id="audio-file"
+                  hidden
+                  ref={fileUploadRef}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setUploadLoading(true);
+                      const formData = new FormData();
+
+                      formData.append("file", file);
+                      formData.append("filename", file.name);
+                      formData.append("user", user);
+
+                      fetch("http://localhost:5000/upload/", {
+                        method: "POST",
+                        body: formData,
+                        mode: "cors",
+                      })
+                        .then((r) => r.json())
+                        .then((j) => {
+                          const dt = 1 / j.sampling_freq;
+                          const timeline = [];
+                          for (let i = 0; i < j.waveform.length; i++) {
+                            timeline.push(i * dt);
+                          }
+
+                          addGraph({
+                            title: file.name,
+                            x: timeline,
+                            y: j.waveform,
+                            emotions: j.emotions,
+                          });
+                        })
+                        .catch((e) => console.log(e))
+                        .finally(() => setUploadLoading(false));
+                    }
+                  }}
+                />
+                <Button
+                  onClick={() => {
+                    if (fileUploadRef.current) {
+                      fileUploadRef.current.click();
+                    }
+                  }}
+                  variant="contained"
+                >
+                  <CloudUpload sx={{ mr: 1 }} />
+                  <Typography marginTop={0.5} sx={{ 
+                    fontWeight: "800 !important", 
+                    paddingX: "10px",
+                  }}>Upload audio file</Typography>
+                </Button>
+                {uploadLoading && <CircularProgress color="secondary" />}
+              </Box>
+            </Paper>
 
             {graphs.length > 0 && (
               <div
